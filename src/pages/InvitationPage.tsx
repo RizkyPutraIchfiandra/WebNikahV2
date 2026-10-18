@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { Closing } from "@/components/closing/Closing";
 import { Preloader } from "@/components/common/Preloader";
@@ -19,16 +20,20 @@ import { RSVP } from "@/components/rsvp/RSVP";
 import { LoveStory } from "@/components/story/LoveStory";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useBodyLock } from "@/hooks";
+import { guestNameFromSlug } from "@/lib/guestLink";
 
 /** Rangkaian utama undangan: pembuka → hero → … → penutup. */
 export default function InvitationPage() {
   const [opened, setOpened] = useState(false);
+  const { slug } = useParams();
 
   const guestName = useMemo(() => {
     const raw = new URLSearchParams(window.location.search).get("to") ?? "";
     const cleaned = raw.replace(/\+/g, " ").replace(/\s+/g, " ").trim();
-    return cleaned.slice(0, 80) || weddingConfig.guest.guestName;
-  }, []);
+    if (cleaned) return cleaned.slice(0, 80);
+    const fromSlug = guestNameFromSlug(slug ?? "").trim();
+    return fromSlug.slice(0, 80) || weddingConfig.guest.guestName;
+  }, [slug]);
 
   useBodyLock(!opened);
 

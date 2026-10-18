@@ -91,7 +91,7 @@ export const weddingConfig = {
       "It would be our honor and joy to have you join us and share your blessings on our special day.",
   },
 
-  /* Nama tamu cadangan bila URL tidak memuat ?to=Nama (boleh dikosongkan) */
+  /* Nama tamu cadangan bila URL tidak memuat nama tamu (link /nama-tamu atau ?to=Nama) */
   guest: {
     guestName: "",
   },

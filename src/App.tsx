@@ -17,6 +17,7 @@ export default function App() {
           </Suspense>
         }
       />
+      <Route path="/:slug" element={<InvitationPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

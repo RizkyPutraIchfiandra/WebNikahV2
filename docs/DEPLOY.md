@@ -102,14 +102,14 @@ tidak 404. Bila lupa terunggah, unggah ulang berkas itu (mode biner).
 
 ## Checklist Pasca-Deploy
 
-- [ ] Beranda terbuka → amplop pembuka muncul, nama tamu dari `?to=` tampil
+- [ ] Beranda terbuka → amplop pembuka muncul, nama tamu dari link personal (`/nama-tamu`) tampil
 - [ ] Musik mulai setelah tombol **Buka Undangan** ditekan (dan bisa dibisukan)
 - [ ] **Simpan ke Kalender** mengunduh `.ics` yang benar
 - [ ] **Petunjuk Arah** membuka Google Maps sesuai lokasi
 - [ ] Peta memuat & pin menunjuk lokasi tepat
 - [ ] Kirim RSVP percobaan (pastikan catatan "mode uji coba" hilang bila Supabase aktif)
 - [ ] Buka `/buat-link` → tempel 2–3 nama → coba **Salin**, **WA**, **Unduh CSV**
-- [ ] Buka `https://domain-anda/?to=Budi` → nama "Budi" muncul di pembuka
+- [ ] Buka `https://domain-anda/budi` → nama "Budi" muncul di pembuka
 - [ ] Kirim link ke diri sendiri di WhatsApp → pratinjau (judul + gambar) tampil
 - [ ] Cek di ponsel: navigasi bawah, daun jatuh, dan pemutar musik berjalan mulus
 

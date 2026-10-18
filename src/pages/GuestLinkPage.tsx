@@ -15,6 +15,7 @@ import { ToastProvider, useToast } from "@/components/common/Toast";
 import { EucalyptusSprig } from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { copyText } from "@/lib/clipboard";
+import { slugifyGuestName } from "@/lib/guestLink";
 
 type GuestRow = { name: string; phone: string; link: string };
 
@@ -70,9 +71,15 @@ function GuestLinkInner() {
   }, [baseUrl]);
 
   const buildLink = (name: string) => {
+    const trimmed = name.trim();
     const base = baseUrl.trim() || `${window.location.origin}/`;
-    const separator = base.includes("?") ? "&" : "?";
-    return `${base}${separator}to=${encodeURIComponent(name.trim())}`;
+    const slug = slugifyGuestName(trimmed);
+    if (!slug || base.includes("?")) {
+      const separator = base.includes("?") ? "&" : "?";
+      return `${base}${separator}to=${encodeURIComponent(trimmed)}`;
+    }
+    const withSlash = base.endsWith("/") ? base : `${base}/`;
+    return `${withSlash}${slug}`;
   };
 
   const rows = useMemo<GuestRow[]>(
@@ -435,8 +442,8 @@ function GuestLinkInner() {
           ) : (
             <p className="text-[11px] leading-relaxed text-ink-soft">
               Kalau kolom “Link Undangan” sudah berisi link lama, isinya akan
-              ditimpa dengan format link aplikasi ini (nama tamu tetap tampil
-              persis di halaman pembuka).
+              ditimpa dengan format link aplikasi ini (nama tamu otomatis
+              muncul di halaman pembuka).
             </p>
           )}
         </div>

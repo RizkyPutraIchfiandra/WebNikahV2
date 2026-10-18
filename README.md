@@ -10,7 +10,7 @@ dibangun sebagai situs statis modern: Vite + React + TypeScript + Tailwind CSS v
 
 ## Fitur
 
-- **Pembuka personal** — nama tamu otomatis dari parameter URL (`?to=Nama+Tamu`)
+- **Pembuka personal** — nama tamu otomatis dari link personal (`/nama-tamu`; format lama `?to=Nama+Tamu` tetap didukung)
 - **Hitungan mundur** menuju 6 Desember 2026, 09.00 WIB
 - **Ayat & doa** — QS Ar-Rum: 21
 - **Mempelai & kisah cinta** — profil lengkap + 4 babak perjalanan
