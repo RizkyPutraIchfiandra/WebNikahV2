@@ -351,3 +351,27 @@ body {
     -webkit-text-stroke: 1px rgb(212 175 55 / 0.55);
   }
 }
+
+/* ————— Tinggi layar pembuka (fallback vh bila svh tidak didukung) ————— */
+.opening-photo {
+  height: 40vh;
+}
+@supports (height: 1svh) {
+  .opening-photo {
+    height: 40svh;
+  }
+}
+@media (min-width: 768px) {
+  .opening-photo {
+    height: 100%;
+  }
+}
+
+.min-h-hero {
+  min-height: 100vh;
+}
+@supports (height: 1svh) {
+  .min-h-hero {
+    min-height: 100svh;
+  }
+}

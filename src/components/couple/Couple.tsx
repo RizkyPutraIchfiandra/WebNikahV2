@@ -1,5 +1,10 @@
 import { Reveal } from "@/components/common/Reveal";
 import { SectionTitle } from "@/components/common/SectionTitle";
+import {
+  ArchCrown,
+  CornerSpray,
+  EucalyptusSprig,
+} from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useLanguage } from "@/lib/i18n";
 
@@ -31,14 +36,8 @@ function PersonRow({
           reversed ? "md:order-2 md:justify-self-end" : "md:justify-self-start"
         }`}
       >
-        {/* ornamen berliang di atas & bawah foto */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-7 left-1/2 flex -translate-x-1/2 flex-col items-center"
-        >
-          <span className="h-[7px] w-[7px] rotate-45 border border-gold/70 bg-pearl" />
-          <span className="mt-1 h-[18px] w-px bg-gradient-to-b from-gold/60 to-gold/30" />
-        </span>
+        {/* mahkota botani di puncak lengkungan + tanda editorial di bawah foto */}
+        <ArchCrown className="pointer-events-none absolute -top-9 left-1/2 h-8 w-[4.5rem] -translate-x-1/2 text-gold-ink/75" />
         <span
           aria-hidden="true"
           className="pointer-events-none absolute -bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center"
@@ -46,6 +45,13 @@ function PersonRow({
           <span className="h-[18px] w-px bg-gradient-to-t from-gold/60 to-gold/30" />
           <span className="mt-1 h-[7px] w-[7px] rotate-45 border border-gold/70 bg-pearl" />
         </span>
+
+        {/* ranting eucalyptus di sisi bawah foto */}
+        <EucalyptusSprig
+          className={`pointer-events-none absolute -bottom-8 h-44 w-24 text-sage/35 ${
+            reversed ? "-right-6 rotate-12 scale-x-[-1]" : "-left-6 -rotate-12"
+          }`}
+        />
 
         {/* bingkai lengkung ganda */}
         <span
@@ -175,7 +181,14 @@ export function Couple() {
   ];
 
   return (
-    <section id="couple" className="grain relative scroll-mt-16 bg-pearl px-6 py-24 md:py-32">
+    <section
+      id="couple"
+      className="grain relative scroll-mt-16 overflow-hidden bg-pearl px-6 py-24 md:py-32"
+    >
+      {/* sebaran botani di sudut section — mengisi ruang kosong */}
+      <CornerSpray className="pointer-events-none absolute right-0 top-2 hidden h-64 w-64 scale-x-[-1] text-sage/20 md:block" />
+      <CornerSpray className="pointer-events-none absolute bottom-2 left-0 hidden h-64 w-64 scale-y-[-1] text-sage/20 md:block" />
+
       <SectionTitle
         index="02"
         eyebrow={t.couple.eyebrow}

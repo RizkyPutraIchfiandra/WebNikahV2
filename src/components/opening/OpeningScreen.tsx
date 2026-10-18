@@ -14,8 +14,6 @@ const copy = {
   addressed: "Kepada / To",
   open: "Buka Undangan",
   openEn: "Open Invitation",
-  musicId: "Musik akan diputar setelah undangan dibuka",
-  musicEn: "Music will play once the invitation is opened",
 };
 
 const container = {
@@ -54,7 +52,7 @@ export function OpeningScreen({
       <FallingLeaves tone="dark" count={10} />
 
       {/* ————— Foto sinematik ————— */}
-      <div className="relative h-[40svh] w-full shrink-0 overflow-hidden md:order-2 md:h-full md:w-[44%]">
+      <div className="opening-photo relative w-full shrink-0 overflow-hidden md:order-2 md:w-[44%]">
         <motion.img
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -90,12 +88,6 @@ export function OpeningScreen({
 
       {/* ————— Panel emerald ————— */}
       <div className="relative flex min-h-0 flex-1 md:order-1">
-        {/* kancing berlian di sambungan (mobile) */}
-        <span
-          aria-hidden="true"
-          className="absolute -top-[5px] left-1/2 z-20 h-[10px] w-[10px] -translate-x-1/2 rotate-45 border border-gold/70 bg-night md:hidden"
-        />
-
         <div
           aria-hidden="true"
           className="pattern-diamond pointer-events-none absolute inset-0 opacity-50"
@@ -104,12 +96,13 @@ export function OpeningScreen({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_28%_10%,rgba(212,175,55,0.09),transparent_55%)]"
         />
-        {/* bingkai ganda stationery (tablet & desktop) */}
+
+        {/* bingkai ganda stationery (semua ukuran layar) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-6 hidden border border-gold/20 md:block"
+          className="pointer-events-none absolute inset-3 border border-gold/20 md:inset-6"
         >
-          <div className="absolute inset-2.5 border border-gold/10" />
+          <div className="absolute inset-1.5 border border-gold/10 md:inset-2.5" />
           <span className="absolute -top-[3px] left-1/2 h-[5px] w-[5px] -translate-x-1/2 rotate-45 bg-gold/60" />
           <span className="absolute -bottom-[3px] left-1/2 h-[5px] w-[5px] -translate-x-1/2 rotate-45 bg-gold/60" />
         </div>
@@ -119,16 +112,16 @@ export function OpeningScreen({
             variants={container}
             initial="hidden"
             animate="show"
-            className="relative mx-auto my-auto flex w-full max-w-md flex-col items-start px-7 py-8 md:max-w-[30rem] md:px-12 md:py-14 lg:max-w-lg lg:px-20"
+            className="relative mx-auto my-auto flex w-full max-w-md flex-col items-start px-8 py-8 md:max-w-[32rem] md:px-12 md:py-14 lg:max-w-[40rem] lg:px-12 lg:py-16"
           >
             {/* label dua bahasa */}
             <motion.div variants={item} className="flex items-center gap-3.5">
-              <span aria-hidden="true" className="h-px w-8 bg-gold/60" />
+              <span aria-hidden="true" className="h-px w-8 bg-gold/60 md:w-10" />
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-gold">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-gold md:text-[11px]">
                   {copy.eyebrowId}
                 </p>
-                <p className="mt-1 text-[8.5px] uppercase tracking-[0.3em] text-sage-light">
+                <p className="mt-1 text-[8.5px] uppercase tracking-[0.3em] text-sage-light md:text-[9.5px]">
                   {copy.eyebrowEn}
                 </p>
               </div>
@@ -137,15 +130,15 @@ export function OpeningScreen({
             {/* nama */}
             <motion.h1
               variants={item}
-              className="mt-6 font-display leading-[0.95] text-cream md:mt-7"
+              className="mt-6 font-display leading-[0.95] text-cream md:mt-8"
             >
-              <span className="block text-[clamp(2.5rem,7.5vw,4.6rem)]">
+              <span className="block text-[clamp(2.5rem,7.5vw,6rem)]">
                 {couple.groomName}
               </span>
-              <span className="text-gold-foil my-1.5 block pl-1 text-[clamp(1.3rem,3vw,2rem)] italic md:my-2">
+              <span className="text-gold-foil my-1.5 block pl-1 text-[clamp(1.3rem,3vw,2.6rem)] italic md:my-2">
                 &amp;
               </span>
-              <span className="block text-[clamp(2.5rem,7.5vw,4.6rem)]">
+              <span className="block text-[clamp(2.5rem,7.5vw,6rem)]">
                 {couple.brideName}
               </span>
             </motion.h1>
@@ -153,10 +146,10 @@ export function OpeningScreen({
             {/* tanggal */}
             <motion.div
               variants={item}
-              className="mt-6 flex items-center gap-4 md:mt-7"
+              className="mt-6 flex items-center gap-4 md:mt-8"
             >
-              <span aria-hidden="true" className="h-px w-12 bg-gold/50" />
-              <p className="text-[11px] uppercase tracking-[0.4em] text-gold-soft">
+              <span aria-hidden="true" className="h-px w-12 bg-gold/50 md:w-14" />
+              <p className="text-[11px] uppercase tracking-[0.4em] text-gold-soft md:text-[12px]">
                 {event.weddingDateLabel}
               </p>
             </motion.div>
@@ -164,17 +157,17 @@ export function OpeningScreen({
             {/* plakat tamu — bingkai dobel gaya stationery */}
             <motion.div
               variants={item}
-              className="relative mt-7 w-full max-w-sm md:mt-9"
+              className="relative mt-7 w-full md:mt-10"
             >
               <span
                 aria-hidden="true"
                 className="absolute -inset-1.5 border border-gold/15"
               />
-              <div className="relative border border-gold/40 bg-night/45 px-6 py-4 backdrop-blur-sm md:px-7 md:py-5">
-                <p className="text-[9.5px] uppercase tracking-[0.36em] text-gold/75">
+              <div className="relative border border-gold/40 bg-night/45 px-6 py-4 backdrop-blur-sm md:px-8 md:py-6">
+                <p className="text-[9.5px] uppercase tracking-[0.36em] text-gold/75 md:text-[10px]">
                   {copy.addressed}
                 </p>
-                <p className="mt-1.5 font-display text-[1.7rem] leading-snug text-gold md:mt-2 md:text-[1.8rem]">
+                <p className="mt-1.5 font-display text-[1.7rem] leading-snug text-gold md:mt-2 md:text-[2.1rem]">
                   {guestName || t.opening.guest}
                 </p>
               </div>
@@ -185,28 +178,18 @@ export function OpeningScreen({
               variants={item}
               type="button"
               onClick={onOpen}
-              className="group mt-7 inline-flex cursor-pointer items-center gap-4 rounded-full bg-gradient-to-r from-gold-soft via-gold to-gold-deep px-7 py-3.5 text-night shadow-[0_16px_40px_rgba(212,175,55,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(212,175,55,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold md:mt-8 md:px-8 md:py-4"
+              className="group mt-7 inline-flex cursor-pointer items-center gap-4 rounded-full bg-gradient-to-r from-gold-soft via-gold to-gold-deep px-7 py-3.5 text-night shadow-[0_16px_40px_rgba(212,175,55,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(212,175,55,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold md:mt-9 md:px-10 md:py-[1.1rem]"
             >
-              <MailOpen className="h-4 w-4" />
+              <MailOpen className="h-4 w-4 md:h-[18px] md:w-[18px]" />
               <span className="flex flex-col items-start leading-none">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.26em]">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.26em] md:text-[12px]">
                   {copy.open}
                 </span>
-                <span className="mt-1 text-[8.5px] uppercase tracking-[0.22em] opacity-70">
+                <span className="mt-1 text-[8.5px] uppercase tracking-[0.22em] opacity-70 md:text-[9.5px]">
                   {copy.openEn}
                 </span>
               </span>
             </motion.button>
-
-            {/* catatan musik */}
-            <motion.p
-              variants={item}
-              className="mt-6 text-[9.5px] leading-relaxed text-sage-soft md:mt-7 md:text-[10px]"
-            >
-              {copy.musicId}
-              <br />
-              {copy.musicEn}
-            </motion.p>
           </motion.div>
         </div>
       </div>

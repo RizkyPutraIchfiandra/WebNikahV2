@@ -39,7 +39,7 @@ export function Hero({ started }: { started: boolean }) {
     <section
       id="home"
       ref={ref}
-      className="grain relative flex min-h-[100svh] items-center overflow-hidden bg-pearl px-6 pb-24 pt-28"
+      className="grain relative flex min-h-hero items-center overflow-hidden bg-pearl px-6 pb-24 pt-28"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_28%,rgba(247,238,219,0.95),transparent_62%)]" />
       <div
@@ -47,7 +47,7 @@ export function Hero({ started }: { started: boolean }) {
         className="pattern-diamond pointer-events-none absolute inset-0 opacity-40"
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         {/* teks */}
         <motion.div
           variants={container}
@@ -57,17 +57,17 @@ export function Hero({ started }: { started: boolean }) {
         >
           <motion.p
             variants={item}
-            className="text-[11px] uppercase tracking-[0.5em] text-gold-ink"
+            className="text-[11px] uppercase tracking-[0.5em] text-gold-ink md:text-[12px]"
           >
             {t.hero.label}
           </motion.p>
 
           <motion.h1 variants={item} className="mt-6 font-display leading-[0.95] text-night">
-            <span className="block text-[clamp(3.2rem,11vw,6.4rem)]">{couple.groomName}</span>
-            <span className="text-gold-foil my-1.5 block text-[clamp(1.5rem,3.5vw,2.4rem)] italic lg:pl-1">
+            <span className="block text-[clamp(3.2rem,11vw,7.5rem)]">{couple.groomName}</span>
+            <span className="text-gold-foil my-1.5 block text-[clamp(1.5rem,3.5vw,3rem)] italic lg:pl-1">
               &amp;
             </span>
-            <span className="block text-[clamp(3.2rem,11vw,6.4rem)]">{couple.brideName}</span>
+            <span className="block text-[clamp(3.2rem,11vw,7.5rem)]">{couple.brideName}</span>
           </motion.h1>
 
           <motion.div
@@ -75,10 +75,10 @@ export function Hero({ started }: { started: boolean }) {
             className="mt-8 flex flex-col items-center gap-3 lg:items-start"
           >
             <span className="h-px w-24 bg-gold/60" aria-hidden="true" />
-            <p className="font-display text-2xl text-ink-soft md:text-[1.7rem]">
+            <p className="font-display text-2xl text-ink-soft md:text-[1.9rem] lg:text-[2.1rem]">
               {event.weddingDayLabel}
             </p>
-            <p className="text-[11px] uppercase tracking-[0.4em] text-gold-ink">
+            <p className="text-[11px] uppercase tracking-[0.4em] text-gold-ink md:text-[12px]">
               {t.hero.location}
             </p>
           </motion.div>
@@ -97,7 +97,7 @@ export function Hero({ started }: { started: boolean }) {
         {/* potret dalam bingkai lengkung */}
         <motion.div
           style={{ y: photoY }}
-          className="order-1 mx-auto w-full max-w-[19rem] sm:max-w-[21rem] lg:order-2 lg:max-w-[24rem]"
+          className="order-1 mx-auto w-full max-w-[20rem] sm:max-w-[23rem] lg:order-2 lg:max-w-[28rem]"
         >
           <motion.div
             variants={photo}
@@ -110,7 +110,7 @@ export function Hero({ started }: { started: boolean }) {
               <img
                 src={media.heroImage}
                 alt={`${couple.groomName} & ${couple.brideName}`}
-                className="arch h-[24rem] w-full object-cover sm:h-[28rem] lg:h-[33rem]"
+                className="arch h-[25rem] w-full object-cover sm:h-[30rem] lg:h-[38rem]"
                 style={{ objectPosition: "50% 25%" }}
               />
             </div>
