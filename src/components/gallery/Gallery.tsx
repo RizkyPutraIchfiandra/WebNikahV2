@@ -4,6 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { EASE, Reveal } from "@/components/common/Reveal";
 import { SectionTitle } from "@/components/common/SectionTitle";
+import {
+  CornerSpray,
+  EucalyptusSprig,
+  LeafDivider,
+} from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useBodyLock } from "@/hooks";
 import { useLanguage } from "@/lib/i18n";
@@ -114,8 +119,13 @@ export function Gallery() {
   return (
     <section
       id="gallery"
-      className="grain grain-dark relative scroll-mt-16 bg-night px-6 py-24 md:py-32"
+      className="grain grain-dark relative scroll-mt-16 overflow-hidden bg-night px-6 py-24 md:py-32"
     >
+      {/* sebaran botani pengisi ruang — agar tidak polos */}
+      <CornerSpray className="pointer-events-none absolute right-0 top-6 hidden h-64 w-64 scale-x-[-1] text-sage/20 md:block" />
+      <CornerSpray className="pointer-events-none absolute bottom-6 left-0 hidden h-64 w-64 scale-y-[-1] text-sage/20 md:block" />
+      <EucalyptusSprig className="pointer-events-none absolute -left-10 top-1/3 hidden h-80 w-40 rotate-[14deg] text-sage/20 lg:block" />
+      <EucalyptusSprig className="pointer-events-none absolute -right-10 bottom-1/4 hidden h-80 w-40 -rotate-[14deg] -scale-x-100 text-sage/20 lg:block" />
       <SectionTitle
         tone="dark"
         index="05"
@@ -145,7 +155,7 @@ export function Gallery() {
               if (info.offset.x < -60) stepCarousel(1);
               else if (info.offset.x > 60) stepCarousel(-1);
             }}
-            className="relative mx-auto h-[360px] w-full max-w-[280px] cursor-grab active:cursor-grabbing sm:h-[420px] sm:max-w-[320px] md:h-[500px] md:max-w-[380px]"
+            className="relative mx-auto h-[360px] w-full max-w-[280px] cursor-grab active:cursor-grabbing sm:h-[420px] sm:max-w-[320px] md:h-[500px] md:max-w-[380px] lg:h-[600px] lg:max-w-[460px]"
           >
             {images.map((image, index) => (
               <CarouselSlide
@@ -199,6 +209,8 @@ export function Gallery() {
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
+
+        <LeafDivider className="mx-auto mt-7 h-4 w-40 text-gold/50" />
       </Reveal>
 
       <AnimatePresence>

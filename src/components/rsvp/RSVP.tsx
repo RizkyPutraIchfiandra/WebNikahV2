@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type CSSProperties, type For
 import { Reveal } from "@/components/common/Reveal";
 import { SectionTitle } from "@/components/common/SectionTitle";
 import { useToast } from "@/components/common/Toast";
-import { LeafIcon } from "@/components/ornaments/ornaments";
+import { CornerSpray, EucalyptusSprig, LeafIcon } from "@/components/ornaments/ornaments";
 import {
   formatWishTime,
   guestbookMode,
@@ -84,7 +84,15 @@ export function RSVP({ guestName }: { guestName: string }) {
   );
 
   return (
-    <section id="rsvp" className="grain relative scroll-mt-16 bg-pearl px-6 py-24 md:py-32">
+    <section
+      id="rsvp"
+      className="grain relative scroll-mt-16 overflow-hidden bg-pearl px-6 py-24 md:py-32"
+    >
+      {/* sebaran botani agar tidak polos */}
+      <CornerSpray className="pointer-events-none absolute right-0 top-6 hidden h-64 w-64 scale-x-[-1] text-sage/20 md:block" />
+      <CornerSpray className="pointer-events-none absolute bottom-6 left-0 hidden h-64 w-64 scale-y-[-1] text-sage/20 md:block" />
+      <EucalyptusSprig className="pointer-events-none absolute -left-12 top-1/3 hidden h-80 w-40 rotate-[16deg] text-sage/20 lg:block" />
+      <EucalyptusSprig className="pointer-events-none absolute -right-12 bottom-1/4 hidden h-80 w-40 -rotate-[16deg] -scale-x-100 text-sage/20 lg:block" />
       <SectionTitle
         index="07"
         eyebrow={t.rsvp.eyebrow}
@@ -92,7 +100,7 @@ export function RSVP({ guestName }: { guestName: string }) {
         subtitle={t.rsvp.subtitle}
       />
 
-      <div className="relative z-10 mx-auto mt-14 grid max-w-5xl items-start gap-8 lg:grid-cols-[1.05fr_1fr]">
+      <div className="relative z-10 mx-auto mt-14 grid max-w-6xl items-start gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
         {/* ————— Form ————— */}
         <Reveal>
           {sent ? (
@@ -116,7 +124,7 @@ export function RSVP({ guestName }: { guestName: string }) {
           ) : (
             <form
               onSubmit={submit}
-              className="h-full rounded-2xl border border-gold/40 bg-cream px-7 py-8 shadow-[0_18px_50px_rgba(13,41,30,0.08)]"
+              className="h-full rounded-2xl border border-gold/40 bg-cream px-7 py-8 shadow-[0_18px_50px_rgba(13,41,30,0.08)] md:px-9 md:py-10"
             >
               <div className="space-y-5">
                 <div>
@@ -240,7 +248,7 @@ export function RSVP({ guestName }: { guestName: string }) {
 
         {/* ————— Daftar ucapan ————— */}
         <Reveal delay={0.1}>
-          <div className="flex h-full flex-col rounded-2xl border border-gold/30 bg-cream px-6 py-7 shadow-[0_18px_50px_rgba(13,41,30,0.08)]">
+          <div className="flex h-full flex-col rounded-2xl border border-gold/30 bg-cream px-6 py-7 shadow-[0_18px_50px_rgba(13,41,30,0.08)] md:px-7 md:py-8">
             <div className="flex items-center justify-between gap-3">
               <h3 className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-gold-ink">
                 <MessageCircle className="h-4 w-4" />
@@ -251,7 +259,7 @@ export function RSVP({ guestName }: { guestName: string }) {
               </span>
             </div>
 
-            <div className="custom-scroll mt-5 max-h-[28rem] flex-1 space-y-3.5 overflow-y-auto pr-1.5">
+            <div className="custom-scroll mt-5 max-h-[28rem] flex-1 space-y-3.5 overflow-y-auto pr-1.5 md:max-h-[34rem]">
               {loading ? (
                 [0, 1, 2].map((index) => (
                   <div
