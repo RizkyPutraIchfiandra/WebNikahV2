@@ -70,7 +70,7 @@ export function Navigation() {
         aria-label={t.navigation.aria}
         className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 lg:block"
       >
-        <ul className="flex flex-col items-center gap-1 rounded-full border border-gold/25 bg-night/80 px-2 py-3 backdrop-blur-lg">
+        <ul className="flex flex-col items-center gap-1 rounded-full border border-gold/25 bg-night/85 px-2 py-3 backdrop-blur-sm">
           {SECTIONS.map((id) => {
             const Icon = ICONS[id];
             const isActive = active === id;
@@ -110,7 +110,7 @@ export function Navigation() {
       {/* navigasi mobile */}
       <nav
         aria-label={t.navigation.aria}
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/20 bg-night/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/20 bg-night pb-[env(safe-area-inset-bottom)] lg:hidden"
       >
         <ul className="mx-auto grid max-w-lg grid-cols-7">
           {SECTIONS.map((id) => {
@@ -146,7 +146,7 @@ export function Navigation() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="fixed bottom-24 left-4 z-40 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-gold/30 bg-night/85 text-gold backdrop-blur-lg transition-colors hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
+          className="fixed bottom-24 left-4 z-40 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-gold/30 bg-night/90 text-gold backdrop-blur-sm transition-colors hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
         >
           <Leaf className="h-4 w-4" />
         </motion.button>

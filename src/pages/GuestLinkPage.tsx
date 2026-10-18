@@ -101,7 +101,7 @@ function GuestLinkInner() {
       <EucalyptusSprig className="pointer-events-none fixed -left-16 top-24 h-72 w-36 rotate-[22deg] text-sage/15" />
       <EucalyptusSprig className="pointer-events-none fixed -right-16 bottom-24 h-72 w-36 -rotate-[22deg] -scale-x-100 text-sage/15" />
 
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-gold/20 bg-night/90 backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-gold/20 bg-night/95">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-5 py-3.5">
           <Link
             to="/"

@@ -167,7 +167,7 @@ export function MusicPlayer({ started }: { started: boolean }) {
             transition={{ duration: 0.45, ease: EASE }}
             role="region"
             aria-label={t.music.title}
-            className="fixed bottom-24 right-4 z-40 w-[21rem] max-w-[calc(100vw-2rem)] rounded-2xl border border-gold/30 bg-night/95 p-4 text-cream shadow-[0_24px_60px_rgba(8,29,21,0.5)] backdrop-blur-xl lg:bottom-6 lg:right-6"
+            className="fixed bottom-24 right-4 z-40 w-[21rem] max-w-[calc(100vw-2rem)] rounded-2xl border border-gold/30 bg-night/95 p-4 text-cream shadow-[0_24px_60px_rgba(8,29,21,0.5)] backdrop-blur-sm lg:bottom-6 lg:right-6"
           >
             <div className="flex items-center gap-3.5">
               <AlbumArt className="h-16 w-16 shrink-0 rounded-xl border border-gold/40" />
@@ -253,7 +253,7 @@ export function MusicPlayer({ started }: { started: boolean }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="fixed bottom-24 right-4 z-40 grid h-14 w-14 cursor-pointer place-items-center rounded-full border border-gold/50 bg-night/90 shadow-[0_14px_36px_rgba(8,29,21,0.4)] backdrop-blur-lg lg:bottom-6 lg:right-6"
+            className="fixed bottom-24 right-4 z-40 grid h-14 w-14 cursor-pointer place-items-center rounded-full border border-gold/50 bg-night/90 shadow-[0_14px_36px_rgba(8,29,21,0.4)] backdrop-blur-sm lg:bottom-6 lg:right-6"
           >
             {playing && (
               <span
