@@ -118,6 +118,7 @@ const copy = {
       previous: "Foto sebelumnya",
       next: "Foto berikutnya",
       photo: "Momen Dimas & Intan",
+      goTo: "Lihat foto",
     },
     gift: {
       eyebrow: "Tanda Kasih",
@@ -283,6 +284,7 @@ const copy = {
       previous: "Previous photo",
       next: "Next photo",
       photo: "Dimas & Intan moment",
+      goTo: "View photo",
     },
     gift: {
       eyebrow: "A Token of Love",
