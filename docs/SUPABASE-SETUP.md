@@ -40,6 +40,10 @@ create table if not exists public.wishes (
 -- Wajib: aktifkan keamanan baris
 alter table public.wishes enable row level security;
 
+-- Izin akses API untuk pengunjung (anon = tamu tanpa login)
+grant usage on schema public to anon, authenticated;
+grant select, insert on public.wishes to anon, authenticated;
+
 -- Tamu boleh membaca semua ucapan
 create policy "wishes_public_read"
   on public.wishes for select
