@@ -11,7 +11,7 @@ const PIN_HTML = `
   <path d="M22 15 C 24.5 17.5, 24.5 22, 22 24.5 C 19.5 22, 19.5 17.5, 22 15 Z" fill="#d4af37"/>
 </svg>`;
 
-/** Canvas Leaflet dengan ubin Esri Light Gray yang lembut (tanpa API key) + pin kustom. */
+/** Canvas Leaflet dengan ubin OpenStreetMap standar (bebas API key) + pin kustom. */
 export default function VenueMapCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { event } = weddingConfig;
@@ -26,20 +26,12 @@ export default function VenueMapCanvas() {
       scrollWheelZoom: false,
     });
 
-    const attribution =
-      'Tiles &copy; <a href="https://www.esri.com/">Esri</a> — Esri, HERE, Garmin, &copy; OpenStreetMap contributors';
-
-    // Ubin dasar (jalan & area) — Esri Light Gray, bebas API key.
-    L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
-      { attribution, maxZoom: 16 },
-    ).addTo(map);
-
-    // Lapisan nama tempat (label) di atas ubin dasar.
-    L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 16 },
-    ).addTo(map);
+    // Ubin OpenStreetMap standar — bebas API key, langsung muncul.
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    }).addTo(map);
 
     const icon = L.divIcon({
       className: "",
