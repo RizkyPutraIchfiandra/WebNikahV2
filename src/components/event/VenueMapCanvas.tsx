@@ -2,6 +2,7 @@ import * as L from "leaflet";
 import { useEffect, useRef } from "react";
 
 import { weddingConfig } from "@/data/weddingConfig";
+import { useLanguage } from "@/lib/i18n";
 
 /* Pin botani emas — digambar langsung sebagai SVG inline. */
 const PIN_HTML = `
@@ -14,6 +15,7 @@ const PIN_HTML = `
 /** Canvas Leaflet dengan ubin OpenStreetMap standar (bebas API key) + pin kustom. */
 export default function VenueMapCanvas() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const { event } = weddingConfig;
 
   useEffect(() => {
@@ -44,14 +46,14 @@ export default function VenueMapCanvas() {
     L.marker([event.latitude, event.longitude], { icon })
       .addTo(map)
       .bindPopup(
-        `<strong>${event.venueName}</strong><br/><span style="font-size:12px">${event.venueAddress}</span>`,
+        `<strong>${t.event.venue}</strong><br/><span style="font-size:12px">${t.event.address}</span>`,
       )
       .openPopup();
 
     return () => {
       map.remove();
     };
-  }, [event.latitude, event.longitude, event.venueName, event.venueAddress]);
+  }, [event.latitude, event.longitude, t.event.venue, t.event.address]);
 
   return <div ref={containerRef} className="h-full w-full" />;
 }

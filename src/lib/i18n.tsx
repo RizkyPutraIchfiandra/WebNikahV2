@@ -16,6 +16,7 @@ export type Language = "id" | "en";
 const copy = {
   id: {
     opening: {
+      eyebrow: "Undangan Pernikahan",
       wedding: "The Wedding Of",
       addressed: "Kepada Yth. Bapak/Ibu/Saudara/i",
       guest: "Tamu Undangan",
@@ -182,6 +183,7 @@ const copy = {
 
   en: {
     opening: {
+      eyebrow: "Wedding Invitation",
       wedding: "The Wedding Of",
       addressed: "Dear Mr./Mrs./Family and Friends",
       guest: "Honored Guest",
@@ -368,6 +370,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = language;
     window.localStorage.setItem("wedding-language", language);
+    document.title =
+      language === "en"
+        ? "Dimas & Intan — Wedding Invitation · 06.12.2026"
+        : "Dimas & Intan — Undangan Pernikahan · 06.12.2026";
   }, [language]);
 
   const value = useMemo(

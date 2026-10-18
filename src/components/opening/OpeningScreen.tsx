@@ -1,20 +1,11 @@
 import { motion } from "framer-motion";
 import { MailOpen, MapPin } from "lucide-react";
 
+import { LanguageToggle } from "@/components/common/LanguageToggle";
 import { EASE } from "@/components/common/Reveal";
 import { FallingLeaves } from "@/components/ornaments/FallingLeaves";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useLanguage } from "@/lib/i18n";
-
-/* Layar pembuka selalu menampilkan dua bahasa sekaligus —
-   pemilih bahasa baru tersedia setelah undangan dibuka. */
-const copy = {
-  eyebrowId: "Undangan Pernikahan",
-  eyebrowEn: "Wedding Invitation",
-  addressed: "Kepada / To",
-  open: "Buka Undangan",
-  openEn: "Open Invitation",
-};
 
 const container = {
   hidden: {},
@@ -50,6 +41,9 @@ export function OpeningScreen({
       aria-label={t.opening.aria}
     >
       <FallingLeaves tone="dark" count={10} />
+
+      {/* pemilih bahasa — sudah bisa dipakai sejak layar pembuka */}
+      <LanguageToggle className="absolute right-4 top-4 z-20" />
 
       {/* ————— Foto sinematik ————— */}
       <div className="opening-photo relative w-full shrink-0 overflow-hidden md:order-2 md:w-[44%]">
@@ -114,17 +108,12 @@ export function OpeningScreen({
             animate="show"
             className="relative mx-auto my-auto flex w-full max-w-md flex-col items-start px-8 py-8 md:max-w-[32rem] md:px-12 md:py-14 lg:max-w-[40rem] lg:px-12 lg:py-16"
           >
-            {/* label dua bahasa */}
+            {/* label atas mengikuti bahasa terpilih */}
             <motion.div variants={item} className="flex items-center gap-3.5">
               <span aria-hidden="true" className="h-px w-8 bg-gold/60 md:w-10" />
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-gold md:text-[11px]">
-                  {copy.eyebrowId}
-                </p>
-                <p className="mt-1 text-[8.5px] uppercase tracking-[0.3em] text-sage-light md:text-[9.5px]">
-                  {copy.eyebrowEn}
-                </p>
-              </div>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-gold md:text-[11px]">
+                {t.opening.eyebrow}
+              </p>
             </motion.div>
 
             {/* nama */}
@@ -165,7 +154,7 @@ export function OpeningScreen({
               />
               <div className="relative border border-gold/40 bg-night/45 px-6 py-4 backdrop-blur-sm md:px-8 md:py-6">
                 <p className="text-[9.5px] uppercase tracking-[0.36em] text-gold/75 md:text-[10px]">
-                  {copy.addressed}
+                  {t.opening.addressed}
                 </p>
                 <p className="mt-1.5 font-display text-[1.7rem] leading-snug text-gold md:mt-2 md:text-[2.1rem]">
                   {guestName || t.opening.guest}
@@ -181,13 +170,8 @@ export function OpeningScreen({
               className="group mt-7 inline-flex cursor-pointer items-center gap-4 rounded-full bg-gradient-to-r from-gold-soft via-gold to-gold-deep px-7 py-3.5 text-night shadow-[0_16px_40px_rgba(212,175,55,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_rgba(212,175,55,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold md:mt-9 md:px-10 md:py-[1.1rem]"
             >
               <MailOpen className="h-4 w-4 md:h-[18px] md:w-[18px]" />
-              <span className="flex flex-col items-start leading-none">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.26em] md:text-[12px]">
-                  {copy.open}
-                </span>
-                <span className="mt-1 text-[8.5px] uppercase tracking-[0.22em] opacity-70 md:text-[9.5px]">
-                  {copy.openEn}
-                </span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.26em] md:text-[12px]">
+                {t.opening.open}
               </span>
             </motion.button>
           </motion.div>

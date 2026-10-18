@@ -7,11 +7,11 @@ import {
   Heart,
   House,
   Images,
-  Languages,
   Leaf,
   Mail,
 } from "lucide-react";
 
+import { LanguageToggle } from "@/components/common/LanguageToggle";
 import { useActiveSection, useScrolledPast } from "@/hooks";
 import { useLanguage } from "@/lib/i18n";
 
@@ -34,7 +34,7 @@ const ICONS: Record<SectionId, typeof House> = {
  * (mobile), progress emas di atas, tombol bahasa, dan kembali ke atas.
  */
 export function Navigation() {
-  const { t, language, toggleLanguage } = useLanguage();
+  const { t } = useLanguage();
   const active = useActiveSection(SECTIONS);
   const showBackToTop = useScrolledPast(900);
 
@@ -63,16 +63,7 @@ export function Navigation() {
       />
 
       {/* tombol bahasa */}
-      <button
-        type="button"
-        onClick={toggleLanguage}
-        title={t.language.button}
-        aria-label={t.language.aria}
-        className="fixed right-4 top-4 z-40 inline-flex cursor-pointer items-center gap-2 rounded-full border border-gold/30 bg-night/80 px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-cream backdrop-blur-lg transition-colors hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-      >
-        <Languages className="h-3.5 w-3.5" />
-        {language === "id" ? "EN" : "ID"}
-      </button>
+      <LanguageToggle className="fixed right-4 top-4 z-40" />
 
       {/* navigasi desktop */}
       <nav
