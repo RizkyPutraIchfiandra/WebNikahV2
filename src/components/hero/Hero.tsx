@@ -42,6 +42,10 @@ export function Hero({ started }: { started: boolean }) {
       className="grain relative flex min-h-[100svh] items-center overflow-hidden bg-pearl px-6 pb-24 pt-28"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_28%,rgba(247,238,219,0.95),transparent_62%)]" />
+      <div
+        aria-hidden="true"
+        className="pattern-diamond pointer-events-none absolute inset-0 opacity-40"
+      />
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
         {/* teks */}

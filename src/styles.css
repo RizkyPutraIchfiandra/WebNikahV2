@@ -335,3 +335,8 @@ body {
 .loader-sweep {
   animation: loader-sweep 1.15s var(--ease-luxe) infinite;
 }
+
+/* ————— Pola berlian halus (panel emerald & latar terang) ————— */
+.pattern-diamond {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='28'%3E%3Cpath%20d='M14%204L24%2014L14%2024L4%2014Z'%20fill='none'%20stroke='%23d4af37'%20stroke-opacity='0.12'%20stroke-width='0.75'/%3E%3C/svg%3E");
+}
