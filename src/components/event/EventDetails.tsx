@@ -9,7 +9,7 @@ import { useLanguage } from "@/lib/i18n";
 
 import { VenueMap } from "./VenueMap";
 
-/** Rangkaian acara — kartu gaya tiket dengan perforasi, plus kalender & peta. */
+/** Rangkaian acara — kartu "Waktu" & "Tempat" bergaya editorial, plus peta. */
 export function EventDetails() {
   const { t } = useLanguage();
   const toast = useToast();
@@ -36,78 +36,92 @@ export function EventDetails() {
       className="grain relative scroll-mt-16 bg-champagne px-6 py-24 md:py-32"
     >
       <SectionTitle
+        index="04"
         eyebrow={t.event.eyebrow}
         title={t.event.title}
         subtitle={t.event.subtitle}
       />
 
-      <div className="relative z-10 mx-auto mt-14 grid max-w-4xl gap-6 md:grid-cols-2">
-        {celebrations.map((celebration, index) => (
-          <Reveal key={celebration.title} delay={index * 0.1}>
-            <article className="relative h-full overflow-hidden rounded-[20px] border border-gold/40 bg-cream px-8 py-10 text-center shadow-[0_18px_50px_rgba(13,41,30,0.08)]">
-              {/* perforasi tiket */}
-              <span
-                aria-hidden="true"
-                className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-champagne"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-champagne"
-              />
+      <div className="relative z-10 mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2 md:gap-8">
+        {/* ————— Waktu ————— */}
+        <Reveal>
+          <article className="flex h-full flex-col rounded-[26px] border border-gold/40 bg-cream px-8 py-10 shadow-[0_18px_50px_rgba(13,41,30,0.07)] md:px-11 md:py-12">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold-ink">
+              {t.event.whenLabel}
+            </p>
 
-              <celebration.icon
-                className="mx-auto h-7 w-7 text-gold-deep"
-                strokeWidth={1.5}
-              />
-              <h3 className="mt-4 font-display text-3xl text-night">
-                {celebration.title}
-              </h3>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.3em] text-gold-ink">
-                {t.event.day}
-              </p>
-              <p className="mt-1.5 text-sm text-ink-soft">{celebration.time}</p>
+            <p className="mt-5 font-display text-[clamp(2.3rem,7vw,3.7rem)] leading-none text-night">
+              {event.weddingDateLabel}
+            </p>
+            <p className="mt-4 text-[11px] uppercase tracking-[0.34em] text-ink-soft">
+              {t.event.day}
+            </p>
 
-              <div className="mx-auto mt-7 w-44 border-t border-dashed border-gold/50" />
+            <div className="mt-9 space-y-7 border-t border-dashed border-gold/40 pt-9">
+              {celebrations.map((celebration) => (
+                <div key={celebration.title} className="flex items-center gap-5">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold/40 bg-champagne">
+                    <celebration.icon
+                      className="h-5 w-5 text-gold-deep"
+                      strokeWidth={1.5}
+                    />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display text-2xl text-night">
+                      {celebration.title}
+                    </h3>
+                    <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-ink-soft">
+                      {celebration.time}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        </Reveal>
 
-              <p className="mt-7 font-display text-2xl text-night">
-                {t.event.venue}
-              </p>
-              <p className="mx-auto mt-2.5 max-w-xs text-xs leading-relaxed text-ink-soft">
-                {t.event.address}
-              </p>
-            </article>
-          </Reveal>
-        ))}
+        {/* ————— Tempat ————— */}
+        <Reveal delay={0.1}>
+          <article className="flex h-full flex-col rounded-[26px] border border-gold/40 bg-cream px-8 py-10 shadow-[0_18px_50px_rgba(13,41,30,0.07)] md:px-11 md:py-12">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold-ink">
+              {t.event.whereLabel}
+            </p>
+
+            <h3 className="mt-5 font-display text-3xl leading-snug text-night md:text-4xl">
+              {t.event.venue}
+            </h3>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-ink-soft">
+              {t.event.address}
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-3 border-t border-dashed border-gold/40 pt-9 md:mt-auto">
+              <button
+                type="button"
+                onClick={onCalendar}
+                className="inline-flex cursor-pointer items-center gap-2.5 rounded-full bg-sage px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-cream transition-colors duration-300 hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              >
+                <CalendarPlus className="h-4 w-4" />
+                {t.event.calendarButton}
+              </button>
+              <a
+                href={event.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 rounded-full border border-gold/60 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-ink transition-colors duration-300 hover:bg-gold/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              >
+                <Navigation className="h-4 w-4" />
+                {t.event.directions}
+              </a>
+            </div>
+
+            <p className="mt-5 text-[10.5px] leading-relaxed text-ink-soft/90">
+              {t.event.calendarHelp}
+            </p>
+          </article>
+        </Reveal>
       </div>
 
-      <Reveal
-        delay={0.1}
-        className="relative z-10 mx-auto mt-11 flex max-w-4xl flex-wrap items-center justify-center gap-4"
-      >
-        <button
-          type="button"
-          onClick={onCalendar}
-          className="inline-flex cursor-pointer items-center gap-2.5 rounded-full bg-sage px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-cream transition-colors duration-300 hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-        >
-          <CalendarPlus className="h-4 w-4" />
-          {t.event.calendarButton}
-        </button>
-        <a
-          href={event.mapsUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2.5 rounded-full border border-gold/60 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-ink transition-colors duration-300 hover:bg-gold/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-        >
-          <Navigation className="h-4 w-4" />
-          {t.event.directions}
-        </a>
-      </Reveal>
-
-      <p className="relative z-10 mx-auto mt-5 max-w-md text-center text-[11px] leading-relaxed text-ink-soft">
-        {t.event.calendarHelp}
-      </p>
-
-      <Reveal delay={0.15} className="relative z-10 mx-auto mt-12 max-w-4xl">
+      <Reveal delay={0.15} className="relative z-10 mx-auto mt-10 max-w-5xl">
         <VenueMap />
       </Reveal>
     </section>

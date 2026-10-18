@@ -322,3 +322,16 @@ body {
   background: rgba(44, 85, 69, 0.3);
   border-radius: 999px;
 }
+
+/* ————— Preloader: garis emas berjalan ————— */
+@keyframes loader-sweep {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+.loader-sweep {
+  animation: loader-sweep 1.15s var(--ease-luxe) infinite;
+}

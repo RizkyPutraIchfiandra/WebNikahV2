@@ -6,12 +6,13 @@ import { useLanguage } from "@/lib/i18n";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
-/** Hitung mundur menuju akad — kartu krem dengan bingkai emas tipis. */
+/** Save the date — pita emerald gelap: tanggal besar + hitung mundur minimal. */
 export function Countdown() {
   const { t } = useLanguage();
   const { days, hours, minutes, seconds, done } = useCountdown(
     weddingConfig.event.weddingDate,
   );
+  const { event } = weddingConfig;
 
   const cells = [
     { value: done ? 0 : days, label: t.countdown.days },
@@ -21,36 +22,54 @@ export function Countdown() {
   ];
 
   return (
-    <section id="countdown" className="grain relative bg-pearl px-6 pb-24 pt-4 md:pb-32 scroll-mt-16">
-      <div className="relative z-10 mx-auto max-w-3xl">
-        <SectionTitle eyebrow={t.countdown.eyebrow} title={t.countdown.title} />
+    <section
+      id="countdown"
+      className="grain grain-dark relative overflow-hidden bg-night px-6 py-24 md:py-32 scroll-mt-16"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-10%,rgba(44,85,69,0.6),transparent_62%)]" />
 
-        <Reveal delay={0.1} className="mt-11">
-          {done ? (
-            <p className="text-center font-display text-3xl text-gold-ink md:text-4xl">
-              {t.countdown.done}
+      <SectionTitle
+        tone="dark"
+        index="01"
+        eyebrow={t.countdown.eyebrow}
+        title={t.countdown.title}
+      />
+
+      <div className="relative z-10 mx-auto mt-14 max-w-5xl border-t border-cream/10 pt-10 md:pt-14">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_auto] md:gap-16">
+          <Reveal>
+            <p className="text-gold-foil font-display text-[clamp(2.4rem,8vw,4rem)] leading-none">
+              {event.weddingDateLabel}
             </p>
-          ) : (
-            <div className="mx-auto grid max-w-xl grid-cols-4 gap-2.5 md:gap-4">
-              {cells.map((cell) => (
-                <div
-                  key={cell.label}
-                  className="rounded-xl border border-gold/40 bg-cream/85 px-1.5 py-4 text-center shadow-[0_12px_34px_rgba(13,41,30,0.06)] backdrop-blur-sm md:py-6"
-                >
-                  <p
-                    key={`${cell.label}-${cell.value}`}
-                    className="tick-pop font-display text-[1.7rem] leading-none text-night md:text-5xl"
-                  >
-                    {pad(cell.value)}
-                  </p>
-                  <p className="mt-2 text-[9px] uppercase tracking-[0.26em] text-gold-ink md:text-[10px]">
-                    {cell.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </Reveal>
+            <p className="mt-4 text-[11px] uppercase tracking-[0.4em] text-sage-light">
+              {t.event.day}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            {done ? (
+              <p className="font-display text-2xl leading-snug text-gold md:text-3xl">
+                {t.countdown.done}
+              </p>
+            ) : (
+              <div className="grid grid-cols-4 gap-5 md:gap-9">
+                {cells.map((cell) => (
+                  <div key={cell.label} className="text-center md:text-left">
+                    <p
+                      key={`${cell.label}-${cell.value}`}
+                      className="tick-pop font-display text-3xl leading-none text-cream md:text-5xl"
+                    >
+                      {pad(cell.value)}
+                    </p>
+                    <p className="mt-2.5 text-[9px] uppercase tracking-[0.28em] text-gold md:text-[10px]">
+                      {cell.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Reveal>
+        </div>
       </div>
     </section>
   );

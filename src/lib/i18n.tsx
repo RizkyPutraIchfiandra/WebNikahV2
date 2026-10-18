@@ -34,12 +34,14 @@ const copy = {
       gift: "Hadiah",
       rsvp: "RSVP",
     },
-    hero: { scroll: "Gulir" },
+    hero: { scroll: "Gulir", label: "Undangan Pernikahan", location: "Karawang, Jawa Barat" },
     couple: {
       eyebrow: "Bismillahirrahmanirrahim",
       title: "Mempelai",
       subtitle:
         "Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.",
+      brideRole: "Mempelai Wanita",
+      groomRole: "Mempelai Pria",
       groomParents: "Putra dari Bapak Ichsananto & Almh. Ibu Fitri Ariana",
       brideParents: "Putri dari Bapak Suwanta & Ibu Neng Mumun",
     },
@@ -83,6 +85,8 @@ const copy = {
       title: "Rangkaian Acara",
       subtitle:
         "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan di hari istimewa kami.",
+      whenLabel: "Waktu",
+      whereLabel: "Tempat",
       ceremony: "Akad Nikah",
       reception: "Resepsi",
       day: "Minggu, 6 Desember 2026",
@@ -195,12 +199,14 @@ const copy = {
       gift: "Gift",
       rsvp: "RSVP",
     },
-    hero: { scroll: "Scroll" },
+    hero: { scroll: "Scroll", label: "Wedding Invitation", location: "Karawang, West Java" },
     couple: {
       eyebrow: "In the name of Allah, the Most Gracious, the Most Merciful",
       title: "Meet the Couple",
       subtitle:
         "By the grace and blessing of Allah SWT, we joyfully invite you to celebrate the marriage of our beloved children.",
+      brideRole: "The Bride",
+      groomRole: "The Groom",
       groomParents: "Son of Mr. Ichsananto & the late Mrs. Fitri Ariana",
       brideParents: "Daughter of Mr. Suwanta & Mrs. Neng Mumun",
     },
@@ -244,6 +250,8 @@ const copy = {
       title: "The Celebration",
       subtitle:
         "With joyful hearts, we invite you to join us and share the happiness of our special day.",
+      whenLabel: "When",
+      whereLabel: "Where",
       ceremony: "Wedding Ceremony",
       reception: "Reception",
       day: "Sunday, 6 December 2026",

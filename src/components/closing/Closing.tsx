@@ -4,16 +4,16 @@ import { useState } from "react";
 import { Reveal } from "@/components/common/Reveal";
 import { useToast } from "@/components/common/Toast";
 import { FallingLeaves } from "@/components/ornaments/FallingLeaves";
-import { CornerSpray, LeafDivider, MonogramSeal } from "@/components/ornaments/ornaments";
+import { LeafDivider } from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { copyText } from "@/lib/clipboard";
 import { useLanguage } from "@/lib/i18n";
 
-/** Penutup — terima kasih, bagikan undangan, dan monogram. */
+/** Penutup — bookend foto sinematik (sama dengan pembuka), terima kasih & bagikan. */
 export function Closing() {
   const { t } = useLanguage();
   const toast = useToast();
-  const { couple, event } = weddingConfig;
+  const { couple, event, media } = weddingConfig;
   const [copied, setCopied] = useState(false);
 
   const shareUrl =
@@ -35,24 +35,32 @@ export function Closing() {
   };
 
   return (
-    <section className="grain grain-dark relative overflow-hidden bg-night px-6 pb-28 pt-24 text-center md:pb-32 md:pt-32">
+    <section className="grain grain-dark relative overflow-hidden bg-night">
+      <img
+        src={media.openingImage}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover opacity-40"
+        style={{ objectPosition: "50% 30%" }}
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-night via-night/60 to-night"
+        aria-hidden="true"
+      />
+
       <FallingLeaves tone="dark" count={8} />
-      <CornerSpray className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 text-sage/50 md:h-80 md:w-80" />
-      <CornerSpray className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 -scale-x-100 text-sage/50 md:h-80 md:w-80" />
 
-      <Reveal className="relative z-10 mx-auto flex max-w-2xl flex-col items-center">
-        <MonogramSeal className="h-24 w-24 text-gold" />
-
-        <h2 className="mt-8 font-display text-4xl text-cream md:text-5xl">
+      <Reveal className="relative z-10 mx-auto flex max-w-2xl flex-col items-center px-6 pb-28 pt-24 text-center md:pb-36 md:pt-32">
+        <h2 className="font-display text-4xl text-cream md:text-5xl">
           {t.closing.title}
         </h2>
-        <LeafDivider className="mt-5 h-5 w-44 text-gold/75" />
+        <LeafDivider className="mt-6 h-5 w-44 text-gold/75" />
 
-        <p className="mt-6 max-w-xl text-sm leading-relaxed text-sage-light md:text-base">
+        <p className="mt-7 max-w-xl text-sm leading-relaxed text-sage-light md:text-base">
           {t.closing.text}
         </p>
 
-        <p className="mt-10 text-[11px] uppercase tracking-[0.4em] text-gold">
+        <p className="mt-12 text-[11px] uppercase tracking-[0.4em] text-gold">
           {t.closing.happy}
         </p>
         <p className="text-gold-foil mt-4 font-display text-5xl leading-tight md:text-6xl">

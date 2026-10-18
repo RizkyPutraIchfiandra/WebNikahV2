@@ -3,24 +3,29 @@ import { ChevronDown } from "lucide-react";
 import { useRef } from "react";
 
 import { EASE } from "@/components/common/Reveal";
-import { CornerSpray, LeafDivider } from "@/components/ornaments/ornaments";
+import { EucalyptusSprig } from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useLanguage } from "@/lib/i18n";
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.15, delayChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
 };
 
 const item = {
   hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 1.15, ease: EASE } },
+  show: { opacity: 1, y: 0, transition: { duration: 1.1, ease: EASE } },
 };
 
-/** Hero sinematik: nama, tanggal, ornamen parallax. */
+const photo = {
+  hidden: { opacity: 0, y: 34, scale: 0.985 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 1.35, ease: EASE } },
+};
+
+/** Hero editorial: nama besar di kiri, potret dalam bingkai lengkung di kanan. */
 export function Hero({ started }: { started: boolean }) {
   const { t } = useLanguage();
-  const { couple } = weddingConfig;
+  const { couple, event, media } = weddingConfig;
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
@@ -28,72 +33,87 @@ export function Hero({ started }: { started: boolean }) {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const ornamentY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
+  const photoY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -64]);
 
   return (
     <section
       id="home"
       ref={ref}
-      className="grain relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-pearl px-6 pb-20 pt-24 text-center"
+      className="grain relative flex min-h-[100svh] items-center overflow-hidden bg-pearl px-6 pb-24 pt-28"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(247,238,219,0.95),transparent_58%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_28%,rgba(247,238,219,0.95),transparent_62%)]" />
 
-      <motion.div style={{ y: ornamentY }} className="pointer-events-none absolute inset-0">
-        <CornerSpray className="absolute -left-24 -top-24 h-64 w-64 text-sage/25 md:h-[26rem] md:w-[26rem]" />
-        <CornerSpray className="absolute -right-24 -top-24 h-64 w-64 -scale-x-100 text-sage/25 md:h-[26rem] md:w-[26rem]" />
-      </motion.div>
-
-      {/* monogram air di belakang nama */}
-      <p
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[32vw] leading-none text-night/[0.035]"
-      >
-        D&amp;I
-      </p>
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate={started ? "show" : "hidden"}
-        className="relative z-10 flex w-full max-w-3xl flex-col items-center"
-      >
-        <motion.p
-          variants={item}
-          className="text-[11px] uppercase tracking-[0.5em] text-gold-ink"
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        {/* teks */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate={started ? "show" : "hidden"}
+          className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left"
         >
-          {t.opening.wedding}
-        </motion.p>
+          <motion.p
+            variants={item}
+            className="text-[11px] uppercase tracking-[0.5em] text-gold-ink"
+          >
+            {t.hero.label}
+          </motion.p>
 
-        <motion.h1
-          variants={item}
-          className="mt-5 font-display text-[clamp(3rem,14vw,7rem)] leading-[0.95] text-night"
-        >
-          {couple.groomName}
-          <span className="text-gold-foil mx-3 inline-block italic">&</span>
-          {couple.brideName}
-        </motion.h1>
+          <motion.h1 variants={item} className="mt-6 font-display leading-[0.95] text-night">
+            <span className="block text-[clamp(3.2rem,11vw,6.4rem)]">{couple.groomName}</span>
+            <span className="text-gold-foil my-1.5 block text-[clamp(1.5rem,3.5vw,2.4rem)] italic lg:pl-1">
+              &amp;
+            </span>
+            <span className="block text-[clamp(3.2rem,11vw,6.4rem)]">{couple.brideName}</span>
+          </motion.h1>
 
-        <motion.div variants={item} className="mt-7">
-          <LeafDivider className="h-6 w-56 text-gold-deep" />
+          <motion.div
+            variants={item}
+            className="mt-8 flex flex-col items-center gap-3 lg:items-start"
+          >
+            <span className="h-px w-24 bg-gold/60" aria-hidden="true" />
+            <p className="font-display text-2xl text-ink-soft md:text-[1.7rem]">
+              {event.weddingDayLabel}
+            </p>
+            <p className="text-[11px] uppercase tracking-[0.4em] text-gold-ink">
+              {t.hero.location}
+            </p>
+          </motion.div>
+
+          <motion.a
+            variants={item}
+            href="#countdown"
+            aria-label={t.hero.scroll}
+            className="mt-14 inline-flex items-center gap-2.5 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold-ink transition-colors hover:text-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+          >
+            {t.hero.scroll}
+            <ChevronDown className="h-4 w-4 animate-float-soft" />
+          </motion.a>
         </motion.div>
 
-        <motion.p
-          variants={item}
-          className="mt-7 font-display text-2xl text-ink-soft md:text-3xl"
+        {/* potret dalam bingkai lengkung */}
+        <motion.div
+          style={{ y: photoY }}
+          className="order-1 mx-auto w-full max-w-[19rem] sm:max-w-[21rem] lg:order-2 lg:max-w-[24rem]"
         >
-          {t.event.day}
-        </motion.p>
-
-        <motion.a
-          variants={item}
-          href="#countdown"
-          aria-label={t.hero.scroll}
-          className="mt-16 flex flex-col items-center gap-1.5 text-gold-ink transition-colors hover:text-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-        >
-          <span className="text-[10px] uppercase tracking-[0.4em]">{t.hero.scroll}</span>
-          <ChevronDown className="h-4 w-4 animate-float-soft" />
-        </motion.a>
-      </motion.div>
+          <motion.div
+            variants={photo}
+            initial="hidden"
+            animate={started ? "show" : "hidden"}
+            className="relative"
+          >
+            <div className="arch absolute -inset-3 border border-gold/45" aria-hidden="true" />
+            <div className="arch relative overflow-hidden border border-gold/70 bg-cream p-2 shadow-[0_30px_70px_rgba(13,41,30,0.16)]">
+              <img
+                src={media.heroImage}
+                alt={`${couple.groomName} & ${couple.brideName}`}
+                className="arch h-[24rem] w-full object-cover sm:h-[28rem] lg:h-[33rem]"
+                style={{ objectPosition: "50% 25%" }}
+              />
+            </div>
+            <EucalyptusSprig className="pointer-events-none absolute -bottom-8 -left-12 h-44 w-24 -rotate-12 text-sage/30" />
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

@@ -56,6 +56,9 @@ export const weddingConfig = {
       { src: bridePhoto, alt: "Potret Ai Intan Sunarsih", orientation: "portrait" },
       { src: groomPhoto, alt: "Potret Dimas Ichfianto", orientation: "portrait" },
     ] as GalleryImage[],
+    /* Foto untuk layar pembuka (sinematik) & hero (bingkai lengkung) */
+    openingImage: bareng4,
+    heroImage: bareng1,
     musicUrl: weddingSong,
     musicTitle: "Sampai Jadi Debu",
     musicArtist: "Banda Neira · Piano Cover",

@@ -86,6 +86,7 @@ export function RSVP({ guestName }: { guestName: string }) {
   return (
     <section id="rsvp" className="grain relative scroll-mt-16 bg-pearl px-6 py-24 md:py-32">
       <SectionTitle
+        index="07"
         eyebrow={t.rsvp.eyebrow}
         title={t.rsvp.title}
         subtitle={t.rsvp.subtitle}

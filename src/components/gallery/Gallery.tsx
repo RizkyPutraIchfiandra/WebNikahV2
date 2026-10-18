@@ -8,7 +8,7 @@ import { weddingConfig } from "@/data/weddingConfig";
 import { useBodyLock } from "@/hooks";
 import { useLanguage } from "@/lib/i18n";
 
-/** Galeri masonry + lightbox yang bisa digeser (swipe) dan navigasi papan tik. */
+/** Galeri masonry di atas emerald gelap + lightbox yang bisa digeser (swipe). */
 export function Gallery() {
   const { t } = useLanguage();
   const images = weddingConfig.media.galleryImages;
@@ -38,32 +38,37 @@ export function Gallery() {
   }, [openIndex, close, step]);
 
   return (
-    <section id="gallery" className="grain relative scroll-mt-16 bg-pearl px-6 py-24 md:py-32">
+    <section
+      id="gallery"
+      className="grain grain-dark relative scroll-mt-16 bg-night px-6 py-24 md:py-32"
+    >
       <SectionTitle
+        tone="dark"
+        index="05"
         eyebrow={t.gallery.eyebrow}
         title={t.gallery.title}
         subtitle={t.gallery.subtitle}
       />
 
-      <div className="relative z-10 mx-auto mt-14 max-w-5xl columns-2 gap-4 md:columns-3 md:gap-6">
+      <div className="relative z-10 mx-auto mt-14 max-w-5xl columns-2 gap-4 md:columns-3 md:gap-5">
         {images.map((image, index) => (
           <Reveal
             key={image.src}
             delay={(index % 3) * 0.08}
-            className="mb-4 break-inside-avoid md:mb-6"
+            className="mb-4 break-inside-avoid md:mb-5"
           >
             <button
               type="button"
               onClick={() => setOpenIndex(index)}
               aria-label={`${t.gallery.enlarge} — ${image.alt}`}
-              className="group block w-full cursor-pointer rounded-md border border-gold/30 bg-cream p-2 transition-all duration-300 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_18px_45px_rgba(13,41,30,0.14)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+              className="group block w-full cursor-pointer overflow-hidden rounded-xl border border-gold/20 bg-night-deep transition-colors duration-300 hover:border-gold/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
               <img
                 src={image.src}
                 alt={image.alt}
                 loading="lazy"
                 decoding="async"
-                className="w-full rounded-[4px] object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </button>
           </Reveal>
