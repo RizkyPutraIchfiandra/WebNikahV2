@@ -166,6 +166,7 @@ const copy = {
       button: "Bagikan Undangan",
       copyLink: "Salin Tautan",
       copied: "Tautan undangan disalin",
+      prefix: "Undangan pernikahan",
     },
     music: {
       open: "Buka pemutar musik",
@@ -333,6 +334,7 @@ const copy = {
       button: "Share the Invitation",
       copyLink: "Copy Link",
       copied: "Invitation link copied",
+      prefix: "The wedding of",
     },
     music: {
       open: "Open music player",

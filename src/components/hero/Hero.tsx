@@ -25,7 +25,7 @@ const photo = {
 /** Hero editorial: nama besar di kiri, potret dalam bingkai lengkung di kanan. */
 export function Hero({ started }: { started: boolean }) {
   const { t } = useLanguage();
-  const { couple, event, media } = weddingConfig;
+  const { couple, media } = weddingConfig;
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
@@ -76,7 +76,7 @@ export function Hero({ started }: { started: boolean }) {
           >
             <span className="h-px w-24 bg-gold/60" aria-hidden="true" />
             <p className="font-display text-2xl text-ink-soft md:text-[1.9rem] lg:text-[2.1rem]">
-              {event.weddingDayLabel}
+              {t.event.day}
             </p>
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold-ink md:text-[12px]">
               {t.hero.location}

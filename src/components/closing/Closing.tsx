@@ -20,7 +20,7 @@ export function Closing() {
     typeof window !== "undefined"
       ? window.location.origin + window.location.pathname
       : "";
-  const shareMessage = `Undangan pernikahan ${couple.groomName} & ${couple.brideName} — ${event.weddingDayLabel}.\n${shareUrl}`;
+  const shareMessage = `${t.share.prefix} ${couple.groomName} & ${couple.brideName} — ${t.event.day}.\n${shareUrl}`;
   const waHref = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
 
   const onCopy = async () => {
