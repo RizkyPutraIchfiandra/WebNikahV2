@@ -1,0 +1,21 @@
+# InfinityFree / Apache — SPA fallback agar /buat-link bisa diakses langsung
+RewriteEngine On
+RewriteBase /
+
+# File & folder yang benar-benar ada dilayani langsung
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Semua rute lain diarahkan ke index.html
+RewriteRule ^ index.html [L]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType audio/mpeg "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
