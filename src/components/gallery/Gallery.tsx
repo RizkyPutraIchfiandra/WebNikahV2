@@ -1,12 +1,52 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { EASE, Reveal } from "@/components/common/Reveal";
 import { SectionTitle } from "@/components/common/SectionTitle";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useBodyLock } from "@/hooks";
 import { useLanguage } from "@/lib/i18n";
+
+/** Tile galeri dengan animasi parallax saat digulir (arah bergantian). */
+function ParallaxTile({
+  image,
+  index,
+  enlargeLabel,
+  onOpen,
+}: {
+  image: { src: string; alt: string };
+  index: number;
+  enlargeLabel: string;
+  onOpen: () => void;
+}) {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const distance = index % 2 === 0 ? 6 : -6;
+  const y = useTransform(scrollYProgress, [0, 1], [`${-distance}%`, `${distance}%`]);
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={onOpen}
+      aria-label={`${enlargeLabel} — ${image.alt}`}
+      className="group block w-full cursor-pointer overflow-hidden rounded-xl border border-gold/20 bg-night-deep transition-colors duration-300 hover:border-gold/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+    >
+      <motion.img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        style={{ y, scale: 1.16 }}
+        className="w-full object-cover transition-[filter] duration-500 group-hover:brightness-[1.05]"
+      />
+    </button>
+  );
+}
 
 /** Galeri masonry di atas emerald gelap + lightbox yang bisa digeser (swipe). */
 export function Gallery() {
@@ -57,20 +97,12 @@ export function Gallery() {
             delay={(index % 3) * 0.08}
             className="mb-4 break-inside-avoid md:mb-5"
           >
-            <button
-              type="button"
-              onClick={() => setOpenIndex(index)}
-              aria-label={`${t.gallery.enlarge} — ${image.alt}`}
-              className="group block w-full cursor-pointer overflow-hidden rounded-xl border border-gold/20 bg-night-deep transition-colors duration-300 hover:border-gold/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-              />
-            </button>
+            <ParallaxTile
+              image={image}
+              index={index}
+              enlargeLabel={t.gallery.enlarge}
+              onOpen={() => setOpenIndex(index)}
+            />
           </Reveal>
         ))}
       </div>
