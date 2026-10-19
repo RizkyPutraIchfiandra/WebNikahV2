@@ -19,3 +19,6 @@ assets-src
 .DS_Store
 *.local
 *.log
+
+.vercel
+.env*
