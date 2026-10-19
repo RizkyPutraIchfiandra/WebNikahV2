@@ -19,15 +19,11 @@ type Person = {
 /** Baris mempelai — potret lengkung + rangkaian garis editorial & plakat orang tua. */
 function PersonRow({
   person,
-  index,
   reversed = false,
 }: {
   person: Person;
-  index: number;
   reversed?: boolean;
 }) {
-  const numeral = `0${index + 1}`;
-
   return (
     <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
       {/* ————— Potret ————— */}
@@ -89,16 +85,10 @@ function PersonRow({
           }`}
         />
 
-        {/* nomor indeks + peran */}
-        <div className="flex items-center gap-3.5">
-          <span className="text-outline-gold font-display text-4xl leading-none">
-            {numeral}
-          </span>
-          <span aria-hidden="true" className="h-8 w-px bg-gold/40" />
-          <p className="text-[10px] uppercase tracking-[0.42em] text-gold-ink">
-            {person.role}
-          </p>
-        </div>
+        {/* peran mempelai */}
+        <p className="text-[10px] uppercase tracking-[0.42em] text-gold-ink">
+          {person.role}
+        </p>
 
         <h3 className="mt-5 font-display text-5xl leading-none text-night md:text-6xl">
           {person.nickname}
@@ -205,7 +195,7 @@ export function Couple() {
 
         <div className="space-y-14 md:space-y-16">
           <Reveal>
-            <PersonRow person={people[0]} index={0} />
+            <PersonRow person={people[0]} />
           </Reveal>
 
           <Reveal delay={0.05}>
@@ -213,7 +203,7 @@ export function Couple() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <PersonRow person={people[1]} index={1} reversed />
+            <PersonRow person={people[1]} reversed />
           </Reveal>
         </div>
       </div>
