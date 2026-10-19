@@ -8,12 +8,13 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties, type RefObject } from "react";
 
 import { EASE } from "@/components/common/Reveal";
 import { EucalyptusGeom } from "@/components/ornaments/ornaments";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useLanguage } from "@/lib/i18n";
+import { MUSIC_TARGET_VOLUME } from "@/lib/music";
 
 /** Sampul album kustom — emerald, emas, monogram. */
 function AlbumArt({ className }: { className?: string }) {
@@ -74,45 +75,64 @@ function Equalizer() {
 /**
  * Pemutar musik gaya kartu: piringan vinyl saat mengecil, membuka menjadi
  * kartu ala Spotify dengan sampul, progres, dan kontrol volume.
+ *
+ * Elemen <audio> sendiri milik InvitationPage — dinyalakan langsung dari
+ * gestur klik "Buka Undangan" agar tidak diblokir kebijakan autoplay
+ * (iOS Safari & peramban dalam aplikasi seperti WhatsApp).
  */
-export function MusicPlayer({ started }: { started: boolean }) {
+export function MusicPlayer({
+  started,
+  audioRef,
+}: {
+  started: boolean;
+  audioRef: RefObject<HTMLAudioElement | null>;
+}) {
   const { t } = useLanguage();
   const { media } = weddingConfig;
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [expanded, setExpanded] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [duration, setDuration] = useState(0);
   const [current, setCurrent] = useState(0);
 
-  /* Mulai musik saat undangan dibuka, dengan volume naik perlahan. */
+  /* Sinkronkan UI dengan elemen audio nyata (play/pause, waktu, volume). */
   useEffect(() => {
-    if (!started) return;
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0;
-    audio
-      .play()
-      .then(() => {
-        setPlaying(true);
-        const begin = performance.now();
-        const fadeMs = 1600;
-        const fade = (now: number) => {
-          const ratio = Math.min(1, (now - begin) / fadeMs);
-          audio.volume = 0.9 * ratio;
-          if (ratio < 1 && !audio.paused) requestAnimationFrame(fade);
-        };
-        requestAnimationFrame(fade);
-      })
-      .catch(() => setPlaying(false));
-  }, [started]);
+    const sync = () => {
+      setPlaying(!audio.paused);
+      setMuted(audio.muted);
+      if (Number.isFinite(audio.duration) && audio.duration > 0) setDuration(audio.duration);
+      setCurrent(audio.currentTime);
+    };
+    sync();
+
+    const onTimeUpdate = () => setCurrent(audio.currentTime);
+    const onLoadedMetadata = () => setDuration(audio.duration || 0);
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    const onVolumeChange = () => setMuted(audio.muted);
+
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+    audio.addEventListener("volumechange", onVolumeChange);
+    return () => {
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+      audio.removeEventListener("volumechange", onVolumeChange);
+    };
+  }, [audioRef]);
 
   const toggle = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) {
-      if (audio.volume < 0.2) audio.volume = 0.9;
+      if (audio.volume < 0.2) audio.volume = MUSIC_TARGET_VOLUME;
       audio
         .play()
         .then(() => setPlaying(true))
@@ -121,7 +141,7 @@ export function MusicPlayer({ started }: { started: boolean }) {
       audio.pause();
       setPlaying(false);
     }
-  }, []);
+  }, [audioRef]);
 
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
@@ -129,7 +149,7 @@ export function MusicPlayer({ started }: { started: boolean }) {
     const next = !muted;
     audio.muted = next;
     setMuted(next);
-  }, [muted]);
+  }, [muted, audioRef]);
 
   const seek = (value: number) => {
     const audio = audioRef.current;
@@ -146,17 +166,6 @@ export function MusicPlayer({ started }: { started: boolean }) {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src={media.musicUrl}
-        loop
-        preload="metadata"
-        onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
-        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || 0)}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-      />
-
       <AnimatePresence mode="wait">
         {expanded ? (
           <motion.div

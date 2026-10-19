@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Closing } from "@/components/closing/Closing";
@@ -21,11 +21,13 @@ import { LoveStory } from "@/components/story/LoveStory";
 import { weddingConfig } from "@/data/weddingConfig";
 import { useBodyLock } from "@/hooks";
 import { guestNameFromSlug } from "@/lib/guestLink";
+import { startMusicPlayback } from "@/lib/music";
 
 /** Rangkaian utama undangan: pembuka → hero → … → penutup. */
 export default function InvitationPage() {
   const [opened, setOpened] = useState(false);
   const { slug } = useParams();
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const guestName = useMemo(() => {
     const raw = new URLSearchParams(window.location.search).get("to") ?? "";
@@ -39,12 +41,27 @@ export default function InvitationPage() {
 
   const handleOpen = () => {
     window.scrollTo({ top: 0, behavior: "auto" });
+    // play() dipanggil langsung di dalam gestur klik (bukan lewat efek):
+    // hanya begitu cara yang andal di iOS Safari & peramban dalam
+    // aplikasi seperti WhatsApp — mencegah musik "kadang nyala".
+    const audio = audioRef.current;
+    if (audio) startMusicPlayback(audio);
     setOpened(true);
   };
 
   return (
     <ToastProvider>
       <Preloader />
+
+      {/* Dipasang sejak awal agar berkas musik ter-buffer (preload="auto")
+          dan menyala seketika saat "Buka Undangan" diklik. */}
+      <audio
+        ref={audioRef}
+        src={weddingConfig.media.musicUrl}
+        loop
+        preload="auto"
+        aria-hidden="true"
+      />
 
       <AnimatePresence>
         {!opened && (
@@ -73,7 +90,7 @@ export default function InvitationPage() {
         </main>
 
         <Navigation />
-        <MusicPlayer started={opened} />
+        <MusicPlayer started={opened} audioRef={audioRef} />
       </div>
     </ToastProvider>
   );
