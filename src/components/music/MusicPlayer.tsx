@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
+  Music,
   Music2,
   Pause,
   Play,
@@ -277,7 +278,8 @@ export function MusicPlayer({
             >
               <span aria-hidden="true" className="absolute inset-0 rounded-full border border-gold/25" />
               <span aria-hidden="true" className="absolute inset-[7px] rounded-full border border-gold/20" />
-              <span aria-hidden="true" className="h-3 w-3 rounded-full bg-gold" />
+              {/* not balok emas — ikut berputar bersama piringan saat musik menyala */}
+              <Music aria-hidden="true" className="h-4 w-4 text-gold" />
             </span>
           </motion.button>
         )}
