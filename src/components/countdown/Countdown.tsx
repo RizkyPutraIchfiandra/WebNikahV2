@@ -57,7 +57,7 @@ export function Countdown() {
                   <div key={cell.label} className="text-center md:text-left">
                     <p
                       key={`${cell.label}-${cell.value}`}
-                      className="tick-pop font-display text-3xl leading-none text-cream md:text-5xl"
+                      className="tick-pop font-display lining-nums tabular-nums text-3xl leading-none text-cream md:text-5xl"
                     >
                       {pad(cell.value)}
                     </p>

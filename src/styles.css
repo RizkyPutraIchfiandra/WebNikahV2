@@ -63,6 +63,9 @@ body {
   background-color: var(--color-pearl);
   color: var(--color-night);
   font-family: var(--font-body);
+  /* Semua angka jadi lining figures (tinggi rata & sejajar).
+     Cormorant Garamond defaultnya angka gaya lama yang naik-turun. */
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
