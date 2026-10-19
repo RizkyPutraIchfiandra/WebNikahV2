@@ -56,7 +56,7 @@ export function Gift() {
                 <Landmark className="h-5 w-5 text-gold/50" strokeWidth={1.5} />
               </div>
 
-              <p className="mt-7 font-display text-[1.9rem] leading-none tracking-[0.06em] text-night md:text-[2.1rem]">
+              <p className="lining-nums tabular-nums mt-7 font-display text-[1.9rem] leading-none tracking-[0.06em] text-night md:text-[2.1rem]">
                 {bank.number}
               </p>
               <p className="mt-3 text-xs text-ink-soft">
