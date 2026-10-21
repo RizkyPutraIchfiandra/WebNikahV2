@@ -1,33 +1,6 @@
 import type { CSSProperties } from "react";
 
-/** Bunga sakura 5 kelopak — currentColor, jadi bisa ditint per butir. */
-function BlossomIcon({
-  variant,
-  className,
-  style,
-}: {
-  variant: 0 | 1 | 2;
-  className?: string;
-  style?: CSSProperties;
-}) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} style={style} aria-hidden="true">
-      <g transform={`rotate(${variant * 24} 12 12)`} fill="currentColor">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <ellipse
-            key={i}
-            cx="12"
-            cy="6.6"
-            rx="3.1"
-            ry="4.6"
-            transform={`rotate(${i * 72} 12 12)`}
-          />
-        ))}
-      </g>
-      <circle cx="12" cy="12" r="1.5" fill="currentColor" opacity="0.45" />
-    </svg>
-  );
-}
+import sakuraPng from "@/assets/images/sakura.png";
 
 type LeafSpec = {
   left: number;
@@ -57,14 +30,9 @@ const LEAVES: LeafSpec[] = [
   { left: 97, size: 16, duration: 20, delay: -16, sway: 4, swayPx: 30, spin: 11.5, opacity: 0.24, variant: 0 },
 ];
 
-const PALETTE: Record<"light" | "dark", string[]> = {
-  light: ["#e8a8bd", "#d98fa9", "#b8913a", "#f0bccd", "#c9a94a", "#e09bb4"],
-  dark: ["#f3c3d2", "#d4af37", "#e8a8bd", "#efe6cf", "#e09bb4", "#c9a94a"],
-};
-
 /**
- * Daun jatuh — lapisan tetap di belakang navigasi, transparan, tidak bisa
- * tersentuh kursor, dan otomatis nonaktif saat prefers-reduced-motion.
+ * Bunga sakura jatuh — lapisan tetap di belakang navigasi, transparan, tidak
+ * bisa tersentuh kursor, dan otomatis nonaktif saat prefers-reduced-motion.
  */
 export function FallingLeaves({
   tone = "light",
@@ -73,7 +41,9 @@ export function FallingLeaves({
   tone?: "light" | "dark";
   count?: number;
 }) {
-  const palette = PALETTE[tone];
+  /* ponytail: foto sakura agak tenggelam di latar gelap, jadi dinaikkan
+     sedikit opasitasnya. Naikkan ke aset terpisah kalau mau beda bentuk. */
+  const boost = tone === "dark" ? 1.6 : 1;
 
   return (
     <div
@@ -88,7 +58,7 @@ export function FallingLeaves({
             left: `${leaf.left}%`,
             animationDuration: `${leaf.duration}s`,
             animationDelay: `${leaf.delay}s`,
-            opacity: leaf.opacity,
+            opacity: Math.min(1, leaf.opacity * boost),
           }}
         >
           <span
@@ -100,14 +70,17 @@ export function FallingLeaves({
               } as CSSProperties
             }
           >
-            <BlossomIcon
-              variant={leaf.variant}
+            <img
+              src={sakuraPng}
+              alt=""
+              loading="lazy"
+              decoding="async"
               className="leaf-spin"
               style={{
-                width: leaf.size,
-                height: leaf.size,
-                color: palette[index % palette.length],
+                width: leaf.size * 1.4,
+                height: leaf.size * 1.4,
                 animationDuration: `${leaf.spin}s`,
+                animationDelay: `${leaf.variant * -1.8}s`,
               }}
             />
           </span>
