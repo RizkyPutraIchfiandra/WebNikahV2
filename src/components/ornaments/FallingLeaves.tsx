@@ -1,6 +1,33 @@
 import type { CSSProperties } from "react";
 
-import { LeafIcon } from "./ornaments";
+/** Bunga sakura 5 kelopak — currentColor, jadi bisa ditint per butir. */
+function BlossomIcon({
+  variant,
+  className,
+  style,
+}: {
+  variant: 0 | 1 | 2;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} style={style} aria-hidden="true">
+      <g transform={`rotate(${variant * 24} 12 12)`} fill="currentColor">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <ellipse
+            key={i}
+            cx="12"
+            cy="6.6"
+            rx="3.1"
+            ry="4.6"
+            transform={`rotate(${i * 72} 12 12)`}
+          />
+        ))}
+      </g>
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" opacity="0.45" />
+    </svg>
+  );
+}
 
 type LeafSpec = {
   left: number;
@@ -31,8 +58,8 @@ const LEAVES: LeafSpec[] = [
 ];
 
 const PALETTE: Record<"light" | "dark", string[]> = {
-  light: ["#a8842c", "#6e8a7b", "#b8913a", "#5e7a6c", "#c9a94a", "#7e9a8b"],
-  dark: ["#d4af37", "#e7ce8f", "#9db8a9", "#c9a94a", "#efe6cf", "#8fa898"],
+  light: ["#e8a8bd", "#d98fa9", "#b8913a", "#f0bccd", "#c9a94a", "#e09bb4"],
+  dark: ["#f3c3d2", "#d4af37", "#e8a8bd", "#efe6cf", "#e09bb4", "#c9a94a"],
 };
 
 /**
@@ -73,12 +100,12 @@ export function FallingLeaves({
               } as CSSProperties
             }
           >
-            <LeafIcon
+            <BlossomIcon
               variant={leaf.variant}
               className="leaf-spin"
               style={{
                 width: leaf.size,
-                height: "auto",
+                height: leaf.size,
                 color: palette[index % palette.length],
                 animationDuration: `${leaf.spin}s`,
               }}
