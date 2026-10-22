@@ -3,7 +3,7 @@ import { SectionTitle } from "@/components/common/SectionTitle";
 import { EucalyptusSprig } from "@/components/ornaments/ornaments";
 import { useLanguage } from "@/lib/i18n";
 
-/** Kisah kami — bab terpusat, tahun diapit garis emas, dipisah garis tipis. */
+/** Kisah kami — garis waktu zigzag dengan titik emas di tiap bab. */
 export function LoveStory() {
   const { t } = useLanguage();
 
@@ -17,35 +17,42 @@ export function LoveStory() {
 
       <SectionTitle tone="dark" index="03" eyebrow={t.story.eyebrow} title={t.story.title} />
 
-      <ol className="relative z-10 mx-auto mt-16 max-w-5xl">
-        {t.story.chapters.map((chapter, index) => (
-          <li
-            key={chapter.title}
-            className={
-              index === 0
-                ? ""
-                : "mt-12 border-t border-cream/10 pt-12 md:mt-16 md:pt-16"
-            }
-          >
-            <Reveal delay={0.05}>
-              <div className="flex flex-col items-center text-center">
-                <span className="flex items-center gap-3">
-                  <span className="h-px w-8 bg-gold/40" />
-                  <span className="text-[11px] uppercase tracking-[0.4em] text-gold">
-                    {chapter.year}
+      <ol className="relative z-10 mx-auto mt-16 max-w-4xl">
+        {/* garis waktu: di kiri pada ponsel, di tengah pada layar lebar */}
+        <span
+          aria-hidden="true"
+          className="absolute bottom-3 left-[9px] top-3 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent md:left-1/2 md:-translate-x-1/2"
+        />
+        {t.story.chapters.map((chapter, index) => {
+          const toRight = index % 2 === 1;
+          return (
+            <li key={chapter.title} className={index === 0 ? "" : "mt-14 md:mt-20"}>
+              <Reveal delay={0.05}>
+                <div className="relative pl-10 md:grid md:grid-cols-2 md:gap-16 md:pl-0">
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-1 grid h-[19px] w-[19px] place-items-center rounded-full border border-gold/40 bg-night md:left-1/2 md:-translate-x-1/2"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                   </span>
-                  <span className="h-px w-8 bg-gold/40" />
-                </span>
-                <h3 className="mt-3 font-display text-3xl text-cream md:text-4xl">
-                  {chapter.title}
-                </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sage-light">
-                  {chapter.text}
-                </p>
-              </div>
-            </Reveal>
-          </li>
-        ))}
+                  <div
+                    className={
+                      toRight ? "md:col-start-2 md:text-left" : "md:col-start-1 md:text-right"
+                    }
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.4em] text-gold">
+                      {chapter.year}
+                    </p>
+                    <h3 className="mt-2.5 font-display text-3xl text-cream md:text-4xl">
+                      {chapter.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-sage-light">{chapter.text}</p>
+                  </div>
+                </div>
+              </Reveal>
+            </li>
+          );
+        })}
       </ol>
     </section>
   );
