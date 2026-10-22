@@ -1,6 +1,7 @@
-import { MapPin } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 
+import { weddingConfig } from "@/data/weddingConfig";
 import { useLanguage } from "@/lib/i18n";
 
 const VenueMapCanvas = lazy(() => import("./VenueMapCanvas"));
@@ -47,6 +48,17 @@ export function VenueMap() {
         ) : (
           <MapPlaceholder />
         )}
+
+        <a
+          href={weddingConfig.event.mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-3 left-1/2 z-[500] flex -translate-x-1/2 items-center gap-2 rounded-full border border-gold/50 bg-night/90 px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-cream shadow-lg backdrop-blur-sm transition-colors hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+        >
+          <MapPin className="h-3.5 w-3.5 text-gold" />
+          {t.event.directions}
+          <ExternalLink className="h-3 w-3 text-gold/70" />
+        </a>
       </div>
     </div>
   );
