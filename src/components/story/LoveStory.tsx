@@ -3,7 +3,7 @@ import { SectionTitle } from "@/components/common/SectionTitle";
 import { EucalyptusSprig } from "@/components/ornaments/ornaments";
 import { useLanguage } from "@/lib/i18n";
 
-/** Kisah kami — bab bernomor dengan pemisah garis, gaya majalah. */
+/** Kisah kami — bab terpusat, tahun diapit garis emas, dipisah garis tipis. */
 export function LoveStory() {
   const { t } = useLanguage();
 
@@ -28,21 +28,20 @@ export function LoveStory() {
             }
           >
             <Reveal delay={0.05}>
-              <div className="grid gap-4 md:grid-cols-[7rem_1fr] md:gap-12">
-                <p className="font-display text-5xl leading-none text-gold/30 md:text-6xl">
-                  0{index + 1}
-                </p>
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.4em] text-gold">
+              <div className="flex flex-col items-center text-center">
+                <span className="flex items-center gap-3">
+                  <span className="h-px w-8 bg-gold/40" />
+                  <span className="text-[11px] uppercase tracking-[0.4em] text-gold">
                     {chapter.year}
-                  </p>
-                  <h3 className="mt-2.5 font-display text-3xl text-cream md:text-4xl">
-                    {chapter.title}
-                  </h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sage-light">
-                    {chapter.text}
-                  </p>
-                </div>
+                  </span>
+                  <span className="h-px w-8 bg-gold/40" />
+                </span>
+                <h3 className="mt-3 font-display text-3xl text-cream md:text-4xl">
+                  {chapter.title}
+                </h3>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sage-light">
+                  {chapter.text}
+                </p>
               </div>
             </Reveal>
           </li>
