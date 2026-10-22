@@ -242,7 +242,8 @@ body {
   background: #eef0ea;
 }
 .leaflet-tile {
-  filter: grayscale(0.55) sepia(0.12) brightness(1.02) contrast(0.96);
+  /* Sedikit hangat saja, warna peta tetap terbaca (hijau taman, biru air). */
+  filter: saturate(1.05) sepia(0.06) brightness(1.01);
 }
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
