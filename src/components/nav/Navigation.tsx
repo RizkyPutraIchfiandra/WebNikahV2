@@ -7,7 +7,6 @@ import {
   Heart,
   House,
   Images,
-  Leaf,
   Mail,
 } from "lucide-react";
 
@@ -94,7 +93,7 @@ export function Navigation() {
               </li>
             );
           })}
-          <li className="mt-1 border-t border-gold/20 pt-2">
+          <li className="mt-1 flex w-full justify-center border-t border-gold/20 pt-2">
             <button
               type="button"
               onClick={toTop}
@@ -112,24 +111,21 @@ export function Navigation() {
         aria-label={t.navigation.aria}
         className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/20 bg-night pb-[env(safe-area-inset-bottom)] lg:hidden"
       >
-        <ul className="mx-auto grid max-w-lg grid-cols-7">
+        <ul className="mx-auto grid max-w-sm grid-cols-7 px-1 py-1.5">
           {SECTIONS.map((id) => {
             const Icon = ICONS[id];
             const isActive = active === id;
             return (
-              <li key={id}>
+              <li key={id} className="grid place-items-center">
                 <a
                   href={`#${id}`}
                   aria-label={labels[id]}
                   aria-current={isActive ? "true" : undefined}
-                  className={`flex flex-col items-center gap-1 pb-2.5 pt-2.5 transition-colors ${
-                    isActive ? "text-gold" : "text-sage-light"
+                  className={`grid h-11 w-11 place-items-center rounded-full transition-colors ${
+                    isActive ? "bg-gold/90 text-night" : "text-sage-light"
                   }`}
                 >
-                  <Icon className="h-[18px] w-[18px]" />
-                  <span className="max-w-full truncate px-0.5 text-[9px] uppercase tracking-wide">
-                    {labels[id]}
-                  </span>
+                  <Icon className="h-5 w-5" />
                 </a>
               </li>
             );
@@ -137,7 +133,7 @@ export function Navigation() {
         </ul>
       </nav>
 
-      {/* kembali ke atas (mobile, ikon daun) */}
+      {/* kembali ke atas (mobile) */}
       {showBackToTop && (
         <motion.button
           type="button"
@@ -148,7 +144,7 @@ export function Navigation() {
           transition={{ duration: 0.4 }}
           className="fixed bottom-24 left-4 z-40 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-gold/30 bg-night/90 text-gold backdrop-blur-sm transition-colors hover:bg-night focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
         >
-          <Leaf className="h-4 w-4" />
+          <ArrowUp className="h-4 w-4" />
         </motion.button>
       )}
     </>
