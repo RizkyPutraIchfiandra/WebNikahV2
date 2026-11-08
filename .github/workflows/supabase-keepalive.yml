@@ -1,0 +1,26 @@
+# Supabase free tier pauses a project after about a week without activity.
+# This job queries the wishes table every 2 days so the guestbook stays online.
+# A failed run means the database is down: GitHub emails the repo owner.
+
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "0 1 */2 * *" # 08:00 WIB, every 2 days
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Query wishes table
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          : "${SUPABASE_URL:?SUPABASE_URL secret is missing}"
+          : "${SUPABASE_ANON_KEY:?SUPABASE_ANON_KEY secret is missing}"
+          curl --fail-with-body --silent --show-error --retry 3 --retry-delay 10 \
+            "$SUPABASE_URL/rest/v1/wishes?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY"
