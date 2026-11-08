@@ -1,12 +1,13 @@
 # Supabase free tier pauses a project after about a week without activity.
-# This job queries the wishes table every 2 days so the guestbook stays online.
+# Supabase docs ask for "a few user requests to the database each day", so this
+# job queries the wishes table twice a day to keep the guestbook online.
 # A failed run means the database is down: GitHub emails the repo owner.
 
 name: Supabase keep-alive
 
 on:
   schedule:
-    - cron: "0 1 */2 * *" # 08:00 WIB, every 2 days
+    - cron: "0 1,13 * * *" # 08:00 and 20:00 WIB, every day
   workflow_dispatch:
 
 jobs:
